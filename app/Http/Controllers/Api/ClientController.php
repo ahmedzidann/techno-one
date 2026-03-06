@@ -15,6 +15,7 @@ use App\Models\Otp;
  use Tymon\JWTAuth\Facades\JWTAuth;
  use App\Models\CouponsConvert;
   use Illuminate\Validation\Rule;
+  
  use DB ;
 
 class ClientController extends Controller
