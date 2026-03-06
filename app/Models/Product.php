@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Productive extends Model
+class Product extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    protected $table = 'productive';
+    protected $table = 'Products';
 
     public function category()
     {
@@ -21,7 +21,7 @@ class Productive extends Model
     }
     public function credit()
     {
-        return $this->hasMany(RasiedAyni::class, 'productive_id')->orderBy('branch_id', 'DESC');
+        return $this->hasMany(RasiedAyni::class, 'Product_id')->orderBy('branch_id', 'DESC');
     }
     public function company()
     {
@@ -33,8 +33,13 @@ class Productive extends Model
     }
     public function batches()
     {
-        return $this->hasMany(PurchasesDetails::class, 'productive_id')
+        return $this->hasMany(PurchasesDetails::class, 'Product_id')
             ->select(['id', 'productive_id', 'batch_number']);
     }
+
+    public function details()
+{
+    return $this->hasMany(ProductDetail::class);
+}
 
 }

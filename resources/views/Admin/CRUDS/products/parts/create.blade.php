@@ -1,6 +1,6 @@
 <!--begin::Form-->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropify/0.2.2/css/dropify.min.css">
-<form id="form" enctype="multipart/form-data" method="POST" action="{{ route('productive.store') }}">
+<form id="form" enctype="multipart/form-data" method="POST" action="{{ route('product.store') }}">
     @csrf
     <div class="row g-4">
 
@@ -73,15 +73,7 @@
 
         </div>
 
-        <div class="d-flex flex-column mb-7 fv-row col-sm-3">
-            <!--begin::Label-->
-            <label for="one_buy_price" class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                <span class="required mr-1">سعر الجمهور </span>
-            </label>
-            <!--end::Label-->
-            <input id="audience_price" required type="text" min="0" class="form-control form-control-solid"
-                name="audience_price" value="" />
-        </div>
+    
 
         <!-- <div class="d-flex flex-column mb-7 fv-row col-sm-3 ">
             <label for="company_id" class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
@@ -127,8 +119,77 @@
           <input type="file" class="dropify" name="image" data-height="150" />
         </div>
 
+        <div class="col-sm-12 mt-5">
+    <label class="fw-bold mb-2">تفاصيل المنتج</label>
+
+    <table class="table table-bordered" id="detailsTable">
+        <thead>
+            <tr>
+                <th style="width: 30%;">المقاس </th>
+                <th style="width: 30%;">السعر </th>
+                <th style="width: 25%;" >العبوه</th>
+                <th style="width: 15%;">الاجراء</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+            <td>
+               <input type="text" name="size[]" class="form-control" placeholder="">
+            </td>
+            <td>
+                <input type="text" name="price[]" class="form-control" placeholder="">
+            </td>
+            <td>
+                <input type="text" name="pieces_at_packet[]" class="form-control" placeholder="">
+            </td>
+             <td>
+                <button type="button" class="btn btn-danger removeRow">حذف</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <button type="button" class="btn btn-primary mt-2" id="addRow">
+        + إضافة صف
+    </button>
+</div>
+
     </div>
 </form>
+<script>
+
+let rowIndex = 1;
+
+$('#addRow').click(function () {
+
+    let row = `
+        <tr>
+            <td>
+               <input type="text" name="size[]" class="form-control" placeholder="">
+            </td>
+            <td>
+                <input type="text" name="price[]" class="form-control" placeholder="">
+            </td>
+            <td>
+                <input type="text" name="pieces_at_packet[]" class="form-control" placeholder="">
+            </td>
+             <td>
+                <button type="button" class="btn btn-danger removeRow">حذف</button>
+            </td>
+        </tr>
+    `;
+
+    $('#detailsTable tbody').append(row);
+
+    rowIndex++;
+});
+
+$(document).on('click', '.removeRow', function () {
+    $(this).closest('tr').remove();
+});
+
+</script>
 <script>
 $(document).on('change', '#zone_id', function () {
     let parentId = $(this).val(); // Get the selected value from the parent select

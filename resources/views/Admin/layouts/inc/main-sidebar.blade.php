@@ -116,7 +116,7 @@
                     <ul class="sub-menu" aria-expanded="false">
                         @canAdminAny('عرض الاصناف')
 
-                        <li><a href="{{ route('productive.index') }}"><i class="mdi mdi-album"></i>
+                        <li><a href="{{ route('product.index') }}"><i class="mdi mdi-album"></i>
                                 <span> الاصناف</span></a></li>
                         <!--<li><a href="{{ route('rasied_ayni.index') }}"><i class="mdi mdi-album"></i> <span> رصيد اول-->
                         <!--            مدة </span></a>-->

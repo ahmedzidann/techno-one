@@ -1,6 +1,6 @@
 <!--begin::Form-->
 
-<form id="form" enctype="multipart/form-data" method="POST" action="{{ route('productive.update', $row->id) }}">
+<form id="form" enctype="multipart/form-data" method="POST" action="{{ route('product.update', $row->id) }}">
     @csrf
     @method('PUT')
     <div class="row g-4">
@@ -130,7 +130,7 @@
                 @endif
             </select>
         </div> -->
-
+<a href="{{ asset('storage/' . $row->path_image) }}" target="_blank">افتح الصورة</a>
         <div class="d-flex flex-column mb-7 fv-row col-sm-12 ">
             <label for="zone_id" class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
                 <span class="required mr-1"> الصوره</span>
@@ -138,8 +138,82 @@
           <input type="file"  data-default-file="{{ $row->path_image ? asset('storage/' . $row->path_image) : '' }}" class="dropify" name="image" data-height="150" />
         </div>
 
+         <div class="col-sm-12 mt-5">
+    <label class="fw-bold mb-2">تفاصيل المنتج</label>
+
+    <table class="table table-bordered" id="detailsTable">
+        <thead>
+            <tr>
+                <th style="width: 30%;">المقاس </th>
+                <th style="width: 30%;">السعر </th>
+                <th style="width: 25%;" >العبوه</th>
+                <th style="width: 15%;">الاجراء</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach ($row->details as $record)
+                
+           
+            <tr>
+            <td>
+               <input type="text" name="size[]" class="form-control" placeholder="" value="{{$record->size}}">
+            </td>
+            <td>
+                <input type="text" name="price[]" class="form-control" value="{{$record->price}}" placeholder="">
+            </td>
+            <td>
+                <input type="text" name="pieces_at_packet[]"  value="{{$record->pieces_at_packet}}" class="form-control" placeholder="">
+            </td>
+             <td>
+                <button type="button" class="btn btn-danger removeRow">حذف</button>
+            </td>
+        </tr>
+
+         @endforeach
+        </tbody>
+    </table>
+
+    <button type="button" class="btn btn-primary mt-2" id="addRow">
+        + إضافة صف
+    </button>
+</div>
+
     </div>
 </form>
+<script>
+
+let rowIndex = 1;
+
+$('#addRow').click(function () {
+
+    let row = `
+        <tr>
+            <td>
+               <input type="text" name="size[]" class="form-control" placeholder="">
+            </td>
+            <td>
+                <input type="text" name="price[]" class="form-control" placeholder="">
+            </td>
+            <td>
+                <input type="text" name="pieces_at_packet[]" class="form-control" placeholder="">
+            </td>
+             <td>
+                <button type="button" class="btn btn-danger removeRow">حذف</button>
+            </td>
+        </tr>
+    `;
+
+    $('#detailsTable tbody').append(row);
+
+    rowIndex++;
+});
+
+$(document).on('click', '.removeRow', function () {
+    $(this).closest('tr').remove();
+});
+
+</script>
 <script>
     $(document).on('change', '#zone_id', function() {
         let parentId = $(this).val(); // Get the selected value from the parent select

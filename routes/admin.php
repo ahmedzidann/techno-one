@@ -24,7 +24,7 @@ use App\Http\Controllers\Admin\ItemInstallationController;
 use App\Http\Controllers\Admin\PreparingItemController;
 use App\Http\Controllers\Admin\ProductAdjustmentController;
 use App\Http\Controllers\Admin\ProductionController;
-use App\Http\Controllers\Admin\ProductiveController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductLowBalanceController;
 use App\Http\Controllers\Admin\PurchasesController;
 use App\Http\Controllers\Admin\PurchasesRequestController;
@@ -76,7 +76,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::resource('categories', CategoryController::class);
 
     // Productive and Branches
-    Route::resource('productive', ProductiveController::class);
+    Route::resource('product', ProductController::class);
     Route::resource('branches', BranchController::class);
 
     // Storage and Rasied Ayni
@@ -158,7 +158,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::resource('productions', ProductionController::class);
     Route::get('getProductionDetails/{id}', [ProductionController::class, 'getProductionDetails'])->name('admin.getProductionDetails');
     Route::get('makeRowDetailsForProductionDetails', [ProductionController::class, 'makeRowDetailsForProductionDetails'])->name('admin.makeRowDetailsForProductionDetails');
-    Route::get('product-price/{id}', [ProductiveController::class, 'getPrice'])->name('admin.getProductPrice');
+    Route::get('product-price/{id}', [ProductController::class, 'getPrice'])->name('admin.getProductPrice');
     Route::resource('destruction', DestructionController::class);
     Route::get('getDestructionDetails/{id}', [DestructionController::class, 'getDestructionDetails'])->name('admin.getDestructionDetails');
     Route::get('makeRowDetailsForDestructionDetails', [DestructionController::class, 'makeRowDetailsForDestructionDetails'])->name('admin.makeRowDetailsForDestructionDetails');
