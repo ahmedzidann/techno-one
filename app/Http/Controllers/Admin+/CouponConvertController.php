@@ -16,14 +16,14 @@ class CouponConvertController extends Controller
         if ($request->ajax()) {
 
             $rows = CouponsConvert::query()
-                ->with(['fromUser', 'toUser']);
+                ->with(['fromUser', 'toUser','payMethod']);
 
             return DataTables::of($rows)
 
                 ->addColumn('from_user', function ($row) {
                     // ثابت: اسم الشركة لو 0
                     if ($row->from_user_id == 0) {
-                        return 'الشركه';
+                        return 'تكنو وان';
                     }
                     return $row->fromUser?->name ?? '-';
                 })
@@ -31,7 +31,7 @@ class CouponConvertController extends Controller
                 ->addColumn('to_user', function ($row) {
                     // ثابت: اسم الشركة لو 0
                     if ($row->to_user_id == 0) {
-                        return 'اسم الشركة';
+                        return 'تكنو وان';
                     }
                     return $row->toUser?->name ?? '-';
                 })

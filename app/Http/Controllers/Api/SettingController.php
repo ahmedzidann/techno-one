@@ -81,4 +81,41 @@ class SettingController extends Controller
             'data'    => $page
         ]);
     }
+
+
+
+    public function Pay_methods()
+    {
+        $slider = DB::table('client_payment_settings')->get();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'طرق الدفع',
+            'data' =>$slider
+        ]);
+    }
+
+    public function check_version(Request $request)
+    {
+        $data = $request->validate([
+            'version' => 'required'
+        ]);
+
+        if($request->version == '7.5')
+        {
+            return response()->json([
+            'status' => true,
+            'message' => 'انت علي اخر نسخه محدثه',
+            'data' =>null
+        ]); 
+        }else{
+             return response()->json([
+            'status' => false,
+            'message' => 'هناك تحديث جديد',
+            'data' =>null
+        ]);
+        }
+
+    }
+    
 }

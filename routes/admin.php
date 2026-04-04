@@ -50,6 +50,7 @@ use App\Http\Controllers\Admin\SupplierVoucherController;
 use App\Http\Controllers\Admin\UnitController;
 use App\Http\Controllers\Admin\ZonesSettingController;
 use App\Http\Controllers\Admin\CouponConvertController;
+use App\Http\Controllers\Admin\ExchangeCouponController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 
@@ -233,6 +234,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::resource('/client-subscriptions', ClientSubscriptionController::class);
     Route::resource('/coupons-converts', CouponConvertController::class);
     Route::get('coupons-status/{status}', [CouponConvertController::class, 'CouponStatus'])->name('admin.coupons-status');
+    Route::get('exchange-coupons/{status}', [ExchangeCouponController::class, 'index'])->name('admin.exchange-coupons');
     Route::post('/admin/coupons-status/update-status', [CouponConvertController::class, 'updateStatus'])->name('admin.coupons-status.update_status');
     Route::get('/clear-all', function () {
 

@@ -118,6 +118,9 @@
 
                         <li><a href="{{ route('product.index') }}"><i class="mdi mdi-album"></i>
                                 <span> الاصناف</span></a></li>
+                                
+                                  <li><a href="{{ route('previews.index') }}"><i class="mdi mdi-album"></i>
+                               <span> اصناف المعاينات</span></a ></li>
                         <!--<li><a href="{{ route('rasied_ayni.index') }}"><i class="mdi mdi-album"></i> <span> رصيد اول-->
                         <!--            مدة </span></a>-->
                         <!--</li>-->
@@ -236,7 +239,28 @@
                     </ul>
                 </li>
  <!------------------------------------------------------------------------------------------------>
-               <!------------------------------------------------------------------------------------------------>
+               <!----------------------------------------------- صرف الكوبونات ------------------------------------------------->
+
+
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="fa fa-code-branch"></i>
+                        <span>  صرف الكوبونات </span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                 
+                         @canAdminAny('عرض الوارد للصرف')
+                       <li><a href="{{ route('admin.exchange-coupons', ['status' => 'pending']) }}"><i class="mdi mdi-album"></i> <span>طلبات الصرف الوارده    
+                              </span></a></li>
+                               <li><a href="{{ route('admin.exchange-coupons', ['status' => 'refused']) }}"><i class="mdi mdi-album"></i> <span>طلبات الصرف المرفوضه    
+                              </span></a></li>
+                              <li><a href="{{ route('admin.exchange-coupons', ['status' => 'approved']) }}"><i class="mdi mdi-album"></i> <span>طلبات الصرف المقبوله    
+                              </span></a></li>
+                               @endcanAdminAny
+
+                    </ul>
+                </li>
                  <!------------------------------------------------------------------------------------------------>
 
 
