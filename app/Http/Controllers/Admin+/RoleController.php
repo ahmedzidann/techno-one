@@ -74,6 +74,7 @@ class RoleController extends Controller
     public function create()
     {
         $permission = Permission::get()->groupBy('group');
+      
         return view('Admin.CRUDS.roles.parts.create', compact('permission'));
     }
 

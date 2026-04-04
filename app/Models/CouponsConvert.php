@@ -14,6 +14,7 @@ class CouponsConvert extends Model
         'from_user_id',
         'to_user_id',
         'amount',
+        'pay_method',
         'notes',
         'invoice_number',
         'publisher',
@@ -33,5 +34,9 @@ class CouponsConvert extends Model
     public function fromUser()
     {
         return $this->belongsTo(Client::class, 'from_user_id');
+    }
+    public function payMethod()
+    {
+        return $this->belongsTo(ClientPaymentSetting::class, 'pay_method');
     }
 }

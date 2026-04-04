@@ -35,6 +35,8 @@ Route::prefix('client')->group(function () {
     Route::get('categories', [ProductController::class, 'categories']);
     Route::get('categories/{id}/products', [ProductController::class, 'productsByCategory']);
       Route::get('slider', [ProductController::class, 'slider']);
+      Route::get('Pay_methods', [SettingController::class, 'Pay_methods']);
+      Route::get('check_version', [SettingController::class, 'check_version']);
       Route::match(['get', 'post'], 'products', [ProductController::class, 'allProducts']);
       Route::post('contact_us', [SettingController::class, 'contact_us']);
       Route::post('static_page', [SettingController::class, 'static_page']);

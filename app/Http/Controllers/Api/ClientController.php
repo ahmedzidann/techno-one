@@ -506,8 +506,9 @@ public function convert(Request $request)
     // المستخدم الحالي من التوكن
     $fromUser = JWTAuth::parseToken()->authenticate();
 
-    // Validation
-    $request->validate([
+ 
+
+$request->validate([
     'to_user_id' => [
         'required',
         'different:' . $fromUser->id,
@@ -520,10 +521,15 @@ public function convert(Request $request)
 
     'amount' => 'required|numeric|min:1',
     'notes'  => 'nullable|string',
+
+    'pay_method' => [
+        Rule::when(
+            $request->to_user_id == 0,
+            ['required', 'integer']
+        ),
+    ],
 ]);
     
-
-
     // العميل المستلم
    $toClient = $request->to_user_id == 0 ? null : Client::findOrFail($request->to_user_id);
     
@@ -544,8 +550,9 @@ public function convert(Request $request)
             'from_user_id' => $fromUser->id,
             'to_user_id'   => $request->to_user_id == 0 ? 0 : $toClient->id,
             'amount'       => $request->amount,
+            'pay_method'       => $request->pay_method,
             'notes'        => $request->notes,
-            'status'        =>'approved',
+            'status'       => $request->to_user_id == 0 ? 'pending' : 'approved',
             'converted_at' => Carbon::now(),
         ]);
 

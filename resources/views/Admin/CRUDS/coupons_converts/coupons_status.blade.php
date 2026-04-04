@@ -25,6 +25,7 @@
                         <th>الي</th>
                          <th>القيمه</th>
                           <th>رقم الفاتوره</th>
+                          <th>طريقة التحويل </th>
                          
                         <th>الملاحظات</th>
                         <th>العمليات</th>
@@ -132,6 +133,10 @@
              {
                 data: 'invoice_number',
                 name: 'invoice_number'
+            },
+            {
+                data: 'payMethod',
+                name: 'payMethod'
             },
             {
                 data: 'notes',

@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\PreparingItemController;
 use App\Http\Controllers\Admin\ProductAdjustmentController;
 use App\Http\Controllers\Admin\ProductionController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\PreviewController;
 use App\Http\Controllers\Admin\ProductLowBalanceController;
 use App\Http\Controllers\Admin\PurchasesController;
 use App\Http\Controllers\Admin\PurchasesRequestController;
@@ -49,7 +50,9 @@ use App\Http\Controllers\Admin\SupplierVoucherController;
 use App\Http\Controllers\Admin\UnitController;
 use App\Http\Controllers\Admin\ZonesSettingController;
 use App\Http\Controllers\Admin\CouponConvertController;
+use App\Http\Controllers\Admin\ExchangeCouponController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 
 // Authentication Routes
 Route::get('admin/login', [AuthController::class, 'loginView'])->name('admin.login');
@@ -78,6 +81,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     // Productive and Branches
     Route::resource('product', ProductController::class);
     Route::resource('branches', BranchController::class);
+     Route::resource('previews', PreviewController::class);
 
     // Storage and Rasied Ayni
     Route::resource('storages', StorageController::class);
@@ -230,6 +234,17 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::resource('/client-subscriptions', ClientSubscriptionController::class);
     Route::resource('/coupons-converts', CouponConvertController::class);
     Route::get('coupons-status/{status}', [CouponConvertController::class, 'CouponStatus'])->name('admin.coupons-status');
+    Route::get('exchange-coupons/{status}', [ExchangeCouponController::class, 'index'])->name('admin.exchange-coupons');
     Route::post('/admin/coupons-status/update-status', [CouponConvertController::class, 'updateStatus'])->name('admin.coupons-status.update_status');
+    Route::get('/clear-all', function () {
+
+    Artisan::call('cache:clear');
+    Artisan::call('view:clear');
+    Artisan::call('route:clear');
+    Artisan::call('config:clear');
+    Artisan::call('optimize:clear');
+
+    return "Cache, Views, Routes, Config cleared successfully!";
+});
     
 });
